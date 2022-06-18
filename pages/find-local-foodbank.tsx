@@ -84,7 +84,7 @@ function MAP() {
         <Flex width="auto" m="4">
           <Box m="2">
             <GoogleMap
-              zoom={12}
+              zoom={11}
               options={{
                 //zoomControl: false,
                 streetViewControl: false,

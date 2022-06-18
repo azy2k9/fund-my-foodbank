@@ -38,19 +38,27 @@ export function returnClosestFoodbanks(myLat, myLng) {
       boroughLng
     );
     if (newDistance < distance) {
+      console.log("something here: ", boroughName);
       foodbank_list.push(boroughFoodbanks);
       distance = newDistance;
       // keep array length to 3
-      if (foodbank_list.length > 3) {
+      if (foodbank_list.length > 5) {
         foodbank_list = foodbank_list.slice(1);
       }
     }
   });
-  // format the foodbank_list to return object within the arrays
+  /**
+   * foodbank_information is the borough and a foodbank
+   * line 42, if the foodbank_center doesn't exist it returns false
+   */
+  console.log(foodbank_list);
   let new_foodbank_list = [];
   foodbank_list.forEach((arr) => {
-    new_foodbank_list.push(...arr);
+    if (arr) {
+      new_foodbank_list.push(...arr);
+    }
   });
+
   // add distance to each foodbank object
   new_foodbank_list.forEach((foodbank) => {
     const distanceFromLocation = getDistanceFromLatLonInKm(
@@ -61,6 +69,7 @@ export function returnClosestFoodbanks(myLat, myLng) {
     );
     foodbank.distanceToMe = distanceFromLocation;
   });
+
   // sort food banks using distance
   new_foodbank_list.sort(
     (a, b) => parseFloat(a.distanceToMe) - parseFloat(b.distanceToMe)
