@@ -5,7 +5,15 @@ import {
   useLoadScript,
   Autocomplete,
 } from "@react-google-maps/api";
-import { Box, Button, Text, Input, Flex, Center } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Text,
+  Input,
+  Flex,
+  Center,
+  Checkbox,
+} from "@chakra-ui/react";
 import { returnClosestFoodbanks } from "./foodbankSorter";
 
 function MAP() {
@@ -20,11 +28,13 @@ function MAP() {
   const [address, setAddress] = useState(null);
   // array that conatins the closest foodbanks
   const [foodbanks, setFoodbanks] = useState(null);
+  const [displayCheckboxes, setDisplayCheckboxes] = useState(false);
 
   useEffect(() => {
     if (location !== null) {
       const myFoodbanks = returnClosestFoodbanks(location.lat, location.lng);
       setFoodbanks(myFoodbanks);
+      setDisplayCheckboxes(true);
     }
   }, [location]);
 
@@ -47,6 +57,9 @@ function MAP() {
       ? console.log("no foodbanks given")
       : foodbanks.map((foodbank, i) => (
           <Marker
+            onClick={() => {
+              console.log(i, " has been clicked");
+            }}
             key={i}
             icon={{
               url: "https://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
@@ -110,6 +123,13 @@ function MAP() {
             >
               Get my location
             </Button>
+            {displayCheckboxes
+              ? foodbanks.map((foodbank, j) => (
+                  <Box key={j}>
+                    <Checkbox>{foodbank.foodbank_name}</Checkbox>
+                  </Box>
+                ))
+              : ""}
           </Box>
         </Flex>
       </Box>
