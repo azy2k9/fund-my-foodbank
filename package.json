@@ -9,14 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/layout": "^1.5.1",
+    "@chakra-ui/react": "^1.8.8",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@prisma/client": "^3.6.0",
     "@react-google-maps/api": "^2.12.0",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
     "cookies": "^0.8.0",
     "format-duration": "^1.4.0",
+    "framer-motion": "^6.3.11",
     "jsonwebtoken": "^8.5.1",
-    "next": "12.0.7",
+    "next": "^12.1.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1"
