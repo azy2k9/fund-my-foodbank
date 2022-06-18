@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   GoogleMap,
   Marker,
@@ -6,6 +6,7 @@ import {
   Autocomplete,
 } from "@react-google-maps/api";
 import { Box, Button, Text, Input, Flex, Center } from "@chakra-ui/react";
+import { returnClosestFoodbanks } from "./foodbankSorter";
 
 function MAP() {
   const [libraries] = useState(["places"]);
@@ -14,9 +15,16 @@ function MAP() {
     libraries,
   });
   // map gets rendred with location
-  const [location, setLocation] = useState({ lat: 51.506489, lng: -0.123019 });
+  const [location, setLocation] = useState(null); // setting a val causes error
   // address is the object from google autocomplete
   const [address, setAddress] = useState(null);
+  // array that conatins the closest foodbanks
+  const [foodbanks, setFoodbanks] = useState(null);
+
+  useEffect(() => {
+    const myFoodbanks = returnClosestFoodbanks(location.lat, location.lng);
+    setFoodbanks(myFoodbanks);
+  }, [location]);
 
   const getPosition = () => {
     const success = (position) => {
@@ -31,7 +39,7 @@ function MAP() {
     };
     navigator.geolocation.getCurrentPosition(success, error);
   };
-  console.log(location);
+
   const center = location; //useMemo(() => ({ lat: 44, lng: -80 }), []);
   if (!isLoaded && location === null) return <div>...loading</div>;
   return (
