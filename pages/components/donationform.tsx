@@ -1,31 +1,24 @@
 import {Button, FormControl, FormLabel, Input} from "@chakra-ui/react";
 import Link from "next/link";
 import {Box, Flex, Spacer} from "@chakra-ui/layout";
-import {useRef, useState} from "react";
 
 export default () => {
-    const [required, updateRequired] = useState();
-    const [data, changeData] = useState({
-        name: '',
-        email: '',
-    });
+    //TODO const [required, updateRequired] = useState();
+    //TODO const [data, changeData] = useState();
 
-    const control = useRef(null);
+   //TODO const control = useRef(null);
     const submit = () => {
-        console.log(control)
         //TODO: updateRequired((currentRequired) => )
     };
 
 
     return (
         <FormControl as={'fieldset'}
-                     flex
+                     display={'flex'}
                      flexDir={'column'}
                      alignItems={'center'}
                      justifyItems={'between'}
-                     isRequired={required}
-                     ref={control}
-        >
+                     isRequired={false}>
             <FormLabel as={'legend'} fontSize={50}>Enter your details here</FormLabel>
             <FormLabel>Name</FormLabel>
             <Input my={5} required ></Input>
@@ -41,7 +34,11 @@ export default () => {
                 </Box>
                 <Spacer/>
                 <Box>
-                    <Button type={'submit'} colorScheme={'green'} onClick={submit}>Proceed</Button>
+                    <Button type={'submit'}
+                            colorScheme={'green'}
+                            onClick={submit}>
+                        Proceed
+                    </Button>
                 </Box>
             </Flex>
         </FormControl>
