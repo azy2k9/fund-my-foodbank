@@ -16,15 +16,17 @@ export default () => {
         <FormControl as={'fieldset'}
                      display={'flex'}
                      flexDir={'column'}
-                     alignItems={'center'}
+                     
                      justifyItems={'between'}
-                     isRequired={false}>
-            <FormLabel as={'legend'} fontSize={50}>Enter your details here</FormLabel>
+                     isRequired={false}
+                     mt={8}
+        >
+            <FormLabel as={'legend'} fontSize={30}>Enter your details here</FormLabel>
             <FormLabel>Name</FormLabel>
-            <Input my={5} required ></Input>
+            <Input my={5} required placeholder={'name'}></Input>
             <FormLabel>Email</FormLabel>
-            <Input my={5} required ></Input>
-            <Flex my={5}>
+            <Input my={5} required placeholder={'email@'}></Input>
+            <Flex my={5} gap={5}>
                 <Box background={'white'} border={'solid 1px'} px={3}>
                     <Link href={{
                         pathname: '/'
@@ -37,7 +39,7 @@ export default () => {
                     <Button type={'submit'}
                             colorScheme={'green'}
                             onClick={submit}>
-                        Proceed
+                        Proceed to payment details
                     </Button>
                 </Box>
             </Flex>
