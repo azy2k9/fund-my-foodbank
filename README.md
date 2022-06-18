@@ -1,34 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Subscriptions to fund my foodbank
 
-## Getting Started
+A stripe product (create this either programatically or in the dashboard)
+    - have a table in the database with a bunch of product plans
+        - £5 a month
+        - £10 a month
+        - £15 a month
+        - £20 a month
 
-First, run the development server:
+Checkout experience ^ (from stripe)
+     - on backend create a checkout session using stripe api (gives you a token)
+     - pass the token to the frontend and then redirect to the checkout page
+        - Donation page
+    - https://stripe.com/docs/connect/collect-then-transfer-guide?platform=web = follow this (connect account = merchant)
+    - create a stripe connect account for the foodbank (express type)
+    - redirect the food bank to a verification flow (in our product -> stripe verification flow page)
+        - accountLink (verify the account)     (https://connect.stripe.com/express/oauth/authorize?client_id=ca_AdFsX9nx1eF8o23XyNCO2sqw6KReyb4O&state=ot8a4xnf5z&redirect_uri=https%3A%2F%2Frocketrides.io%2Fpilots%2Fstripe%2Ftoken&stripe_user%5Bbusiness_type%5D=individual&stripe_user%5Bbusiness_name%5D=&stripe_user%5Bfirst_name%5D=&stripe_user%5Blast_name%5D=&stripe_user%5Bemail%5D=john%40j.com&stripe_user%5Bcountry%5D=US#/)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+        ```
+            const accountLink = await stripe.accountLinks.create({
+                account: 'acct_1032D82eZvKYlo2C',
+                refresh_url: 'https://example.com/reauth',
+                return_url: 'https://example.com/return',
+                type: 'account_onboarding',
+            });
+        ```
+            - when the flow above is finished, handle in the webhook to notify the foodbank that their account is verified (account_updated event?)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+        - webhook payment recieved from subscription
+            - initiate a transfer to a connect account (check stripe connect balance and ensure you have enough before sending)
+            (money can go into the holding part of the connect but you wont get paid out till you actually verify)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+        - after they are verified, people can subscribe to the foodbank
+        - Donation page success page
 
-## Learn More
+webhook - when someone new subscribes (or unsubscribes etc)
+    - send email to the foodbank when someone subscribes
 
-To learn more about Next.js, take a look at the following resources:
+turn off automatic payouts to your own platform accounts (money will sit in the stripe account)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+success donation page etc
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
