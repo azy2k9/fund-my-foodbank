@@ -22,8 +22,10 @@ function MAP() {
   const [foodbanks, setFoodbanks] = useState(null);
 
   useEffect(() => {
-    const myFoodbanks = returnClosestFoodbanks(location.lat, location.lng);
-    setFoodbanks(myFoodbanks);
+    if (location !== null) {
+      const myFoodbanks = returnClosestFoodbanks(location.lat, location.lng);
+      setFoodbanks(myFoodbanks);
+    }
   }, [location]);
 
   const getPosition = () => {
@@ -40,6 +42,22 @@ function MAP() {
     navigator.geolocation.getCurrentPosition(success, error);
   };
 
+  const foodbankMarkers =
+    foodbanks === null
+      ? console.log("no foodbanks given")
+      : foodbanks.map((foodbank, i) => (
+          <Marker
+            key={i}
+            icon={{
+              url: "https://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
+            }}
+            position={{
+              lat: parseFloat(foodbank.centre_geolocation.lat),
+              lng: parseFloat(foodbank.centre_geolocation.lng),
+            }}
+          />
+        ));
+
   const center = location; //useMemo(() => ({ lat: 44, lng: -80 }), []);
   if (!isLoaded && location === null) return <div>...loading</div>;
   return (
@@ -53,9 +71,9 @@ function MAP() {
         <Flex width="auto" m="4">
           <Box m="2">
             <GoogleMap
-              zoom={13}
+              zoom={12}
               options={{
-                zoomControl: false,
+                //zoomControl: false,
                 streetViewControl: false,
                 mapTypeControl: false,
               }}
@@ -63,12 +81,7 @@ function MAP() {
               mapContainerStyle={{ width: "300px", height: "400px" }}
             >
               <Marker position={center} />
-              <Marker
-                icon={{
-                  url: "https://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
-                }}
-                position={{ lat: 51.46399677111467, lng: -0.1924867280810752 }}
-              />
+              {foodbankMarkers}
             </GoogleMap>
           </Box>
           <Box m="2">
