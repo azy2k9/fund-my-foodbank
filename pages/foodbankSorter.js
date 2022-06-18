@@ -51,5 +51,20 @@ export function returnClosestFoodbanks(myLat, myLng) {
   foodbank_list.forEach((arr) => {
     new_foodbank_list.push(...arr);
   });
+  // add distance to each foodbank object
+  new_foodbank_list.forEach((foodbank) => {
+    const distanceFromLocation = getDistanceFromLatLonInKm(
+      myLat,
+      myLng,
+      parseFloat(foodbank.centre_geolocation.lat),
+      parseFloat(foodbank.centre_geolocation.lng)
+    );
+    foodbank.distanceToMe = distanceFromLocation;
+  });
+  // sort food banks using distance
+  new_foodbank_list.sort(
+    (a, b) => parseFloat(a.distanceToMe) - parseFloat(b.distanceToMe)
+  );
+
   return new_foodbank_list;
 }
