@@ -1,14 +1,14 @@
 import { useMemo, useEffect, useState } from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { Box, Container } from "@chakra-ui/react";
 
 function MAP() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.API_KEY,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY,
   });
   const [location, setLocation] = useState(null);
 
   useEffect(() => {
-    // make a function that get gps location
     const success = (position) => {
       setLocation({
         lat: position.coords.latitude,
@@ -21,19 +21,25 @@ function MAP() {
     };
     navigator.geolocation.getCurrentPosition(success, error);
   }, []);
-  //console.log("my location is: ", location);
+
   const center = location; //useMemo(() => ({ lat: 44, lng: -80 }), []);
-  //console.log(center);
-  console.log(location && location);
   if (!isLoaded && location === null) return <div>...loading</div>;
   return (
-    <GoogleMap
-      zoom={10}
-      center={center}
-      mapContainerStyle={{ width: "100vw", height: "100vw" }}
-    >
-      <Marker position={center} />
-    </GoogleMap>
+    <Box>
+      <GoogleMap
+        zoom={13}
+        center={center}
+        mapContainerStyle={{ width: 500, height: 700 }}
+      >
+        <Marker position={center} />
+        <Marker
+          icon={{
+            url: "https://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
+          }}
+          position={{ lat: 51.46399677111467, lng: -0.1924867280810752 }}
+        />
+      </GoogleMap>
+    </Box>
   );
 }
 export default MAP;
