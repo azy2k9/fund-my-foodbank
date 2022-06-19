@@ -4,7 +4,7 @@ interface ProductProps {
     name: string;
     value: number;
     description: string;
-    onDonate: (plan: string) => void;
+    onDonate: (plan: string, amount: number) => void;
 }
 
 export default function Product({ name, value, description, onDonate }: ProductProps) {
@@ -67,7 +67,7 @@ export default function Product({ name, value, description, onDonate }: ProductP
                         bg: 'brand.700',
                         _dark: { bg: 'brand.600' },
                     }}
-                    onClick={() => onDonate(name)}
+                    onClick={() => onDonate(name, value)}
                 >
                     Donate
                 </Button>

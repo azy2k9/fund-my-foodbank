@@ -20,18 +20,10 @@ const Links = [
         route: '/',
     },
     {
-        name: 'Donate',
-        route: '/donation',
-    },
-    {
         name: 'Find Local Foodbank',
         route: '/find-local-foodbank',
     },
 ];
-
-// const NavLink = ({ children, link }: { children: ReactNode; link: string }) => (
-
-// );
 
 export default function Navigationbar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,11 +46,14 @@ export default function Navigationbar() {
                                 src={'/fund-your-foodbank-logo.svg'}
                                 width={82}
                                 height={82}
-                            ></Image>
+                                onClick={() => router.push('/')}
+                                _hover={{ cursor: 'pointer' }}
+                            />
                         </Box>
                         <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
                                 <Button
+                                    key={link.route}
                                     px={2}
                                     variant={'ghost'}
                                     py={1}
@@ -75,7 +70,7 @@ export default function Navigationbar() {
                             ))}
                         </HStack>
                     </HStack>
-                    <Flex alignItems={'center'}>
+                    {/* <Flex alignItems={'center'}>
                         <Button
                             variant={'solid'}
                             style={{ backgroundColor: '#48bb78' }}
@@ -85,7 +80,7 @@ export default function Navigationbar() {
                         >
                             Food Bank Sign in
                         </Button>
-                    </Flex>
+                    </Flex> */}
                 </Flex>
                 <Divider></Divider>
             </Box>
