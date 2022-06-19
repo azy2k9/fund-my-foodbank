@@ -1,7 +1,20 @@
 import { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
-import { Box, Button, Text, Input, Flex, Center, Checkbox } from '@chakra-ui/react';
+import {
+    Box,
+    Button,
+    Text,
+    Input,
+    Flex,
+    Center,
+    Checkbox,
+    SimpleGrid,
+    Icon,
+    Stack,
+} from '@chakra-ui/react';
 import { returnClosestFoodbanks } from '../utils/foodbankSorter';
+import { Feature } from './components/featuredisplay';
+import { CheckIcon } from '@chakra-ui/icons';
 
 function MAP() {
     const { isLoaded } = useLoadScript({
@@ -19,10 +32,8 @@ function MAP() {
     const [allCheckbox, setAllCheckbox] = useState(null);
 
     useEffect(() => {
-        console.log('a: ', foodbanks);
         if (location !== null) {
             const myFoodbanks = returnClosestFoodbanks(location.lat, location.lng);
-            console.log('b: ', myFoodbanks);
             setFoodbanks(myFoodbanks);
             setDisplayCheckboxes(true);
             // loop through and set default false for all checkboxes
@@ -70,7 +81,7 @@ function MAP() {
     };
     const foodbankMarkers =
         foodbanks === null
-            ? console.log('no foodbanks given')
+            ? ''
             : foodbanks.map((foodbank, i) => (
                   <Marker
                       onClick={() => {
@@ -92,84 +103,132 @@ function MAP() {
         // navigate to donations page
     };
 
-    const center = location; //useMemo(() => ({ lat: 44, lng: -80 }), []);
+    const center = location ? location : { lat: 51.507, lng: -0.127 }; //useMemo(() => ({ lat: 44, lng: -80 }), []);
     if (!isLoaded && location === null) return <div>...loading</div>;
     return (
         <Center>
-            <Box width='90vw' m='6'>
-                <Box m='3'>
-                    <Center fontSize='3xl'>DONOR DEBREIF: You can split your donation...</Center>
-                </Box>
-                <Flex width='auto' m='4'>
-                    <Box m='2'>
-                        <GoogleMap
-                            zoom={11}
-                            options={{
-                                //zoomControl: false,
-                                streetViewControl: false,
-                                mapTypeControl: false,
-                            }}
-                            center={center}
-                            mapContainerStyle={{ width: '300px', height: '400px' }}
-                        >
-                            <Marker position={center} />
-                            {foodbankMarkers}
-                        </GoogleMap>
+            <Stack>
+                <Box width='90vw' mt='6'>
+                    <Box m='3'>
+                        <Text fontSize='3xl'>Donating to your local food banks</Text>
                     </Box>
-                    <Box m='2'>
-                        <Text m='2' fontSize='2xl'>
-                            Search your local foodbannk here
-                        </Text>
-                        <Autocomplete
-                            onLoad={(data) => {
-                                setAddress(data);
-                            }}
-                            onPlaceChanged={() => {
-                                const lat = address.getPlace().geometry.location.lat();
-                                const lng = address.getPlace().geometry.location.lng();
-                                setLocation({ lat: lat, lng: lng });
-                            }}
-                        >
-                            <Input m='2' placeholder='Enter your address or postcode' />
-                        </Autocomplete>
+                    <Box>
+                        <SimpleGrid columns={{ base: 1, md: 4 }} spacing={10}>
+                            <Feature
+                                icon={<Icon as={CheckIcon} w={5} h={5} />}
+                                title={'Find your local food banks'}
+                            />
+                            <Feature
+                                icon={<Icon as={CheckIcon} w={5} h={5} />}
+                                title={'Split your donantion equally'}
+                            />
+                            <Feature
+                                icon={<Icon as={CheckIcon} w={5} h={5} />}
+                                title={'Receive updates about how your donations helped'}
+                            />
+                            <Feature
+                                icon={<Icon as={CheckIcon} w={5} h={5} />}
+                                title={'Support your community'}
+                            />
+                        </SimpleGrid>
+                    </Box>
+                    <Flex width='auto' m='4'>
+                        <Box m='2'>
+                            <GoogleMap
+                                zoom={13}
+                                options={{
+                                    //zoomControl: false,
+                                    streetViewControl: false,
+                                    mapTypeControl: false,
+                                }}
+                                center={center}
+                                mapContainerStyle={{ width: '500px', height: '400px' }}
+                            >
+                                <Marker position={center} />
+                                {foodbankMarkers}
+                            </GoogleMap>
+                        </Box>
+                        <Stack m='2'>
+                            <Text m='2' fontSize='2xl' fontWeight={'600'}>
+                                Search your local foodbanks
+                            </Text>
+                            <Flex alignItems={'center'}>
+                                <Autocomplete
+                                    onLoad={(data) => {
+                                        setAddress(data);
+                                    }}
+                                    onPlaceChanged={() => {
+                                        const lat = address.getPlace().geometry.location.lat();
+                                        const lng = address.getPlace().geometry.location.lng();
+                                        setLocation({ lat: lat, lng: lng });
+                                    }}
+                                >
+                                    <Input
+                                        width={'400px'}
+                                        m='2'
+                                        placeholder='Enter your address or postcode...'
+                                    />
+                                </Autocomplete>
 
+                                <Button
+                                    colorScheme='blackAlpha'
+                                    m='3'
+                                    onClick={() => {
+                                        getPosition();
+                                    }}
+                                >
+                                    Use location
+                                </Button>
+                            </Flex>
+                            <Box>
+                                {displayCheckboxes ? (
+                                    <Box m='3'>
+                                        <Stack>
+                                            {foodbanks.map((foodbank, j) => (
+                                                <Checkbox
+                                                    border={'solid black 1px'}
+                                                    borderRadius={'5px'}
+                                                    pl={'3'}
+                                                    width={'100%'}
+                                                    key={j}
+                                                    isChecked={allCheckbox[j].checkboxDefault}
+                                                    onChange={() => {
+                                                        markerClick(j);
+                                                    }}
+                                                >
+                                                    {foodbank.foodbank_name}
+                                                </Checkbox>
+                                            ))}
+                                        </Stack>
+                                    </Box>
+                                ) : (
+                                    ''
+                                )}
+                            </Box>
+                        </Stack>
+                    </Flex>
+                </Box>
+                {displayCheckboxes ? (
+                    <Box display={'flex'} alignItems='center' justifyContent={'right'}>
+                        <Text fontWeight={'500'} fontSize={'lg'} mr='4'>
+                            Want to split your donation to these local food banks?
+                        </Text>
                         <Button
-                            colorScheme='blue'
+                            colorScheme='green'
                             m='2'
                             onClick={() => {
-                                getPosition();
+                                submitFoodbankChoices();
                             }}
+                            pr={'8'}
+                            pl={'8'}
                         >
-                            Get my location
+                            Yes I want to donate
                         </Button>
-                        {displayCheckboxes
-                            ? foodbanks.map((foodbank, j) => (
-                                  <Box key={j}>
-                                      <Checkbox
-                                          isChecked={allCheckbox[j].checkboxDefault}
-                                          onChange={() => {
-                                              markerClick(j);
-                                          }}
-                                      >
-                                          {foodbank.foodbank_name}
-                                      </Checkbox>
-                                  </Box>
-                              ))
-                            : ''}
-                        <Box m='2'>
-                            <Button
-                                colorScheme='blue'
-                                m='2'
-                                onClick={() => {
-                                    submitFoodbankChoices();
-                                }}
-                            >
-                                Submit your selection
-                            </Button>
-                        </Box>
                     </Box>
-                </Flex>
-            </Box>
+                ) : (
+                    ''
+                )}
+            </Stack>
         </Center>
     );
 }
