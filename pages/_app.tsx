@@ -8,7 +8,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     return (
         <ChakraProvider theme={Theme}>
             <Fonts />
-            <Navigationbar/>
+            <Navigationbar></Navigationbar>
             <Component {...pageProps} />
         </ChakraProvider>
     );

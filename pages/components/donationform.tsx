@@ -1,6 +1,6 @@
 import {Button, Checkbox, FormControl, FormLabel, Input} from "@chakra-ui/react";
 import Link from "next/link";
-import {Box, Flex, Spacer} from "@chakra-ui/layout";
+import {Box, Container, Flex, Spacer} from "@chakra-ui/layout";
 
 export default () => {
     //TODO const [required, updateRequired] = useState();
@@ -13,6 +13,7 @@ export default () => {
 
 
     return (
+        <Container maxWidth={750}>
         <FormControl as={'fieldset'}
                      display={'flex'}
                      flexDir={'column'}
@@ -28,13 +29,9 @@ export default () => {
             <Input my={5} required placeholder={'email@'}></Input>
             <Checkbox required _highlighted={{color: 'green'}}>Opt in to recieve email updates from your local food banks on how your donation has helped them</Checkbox>
             <Flex my={5} gap={5}>
-                <Box background={'white'} border={'solid 1px'} px={3}>
-                    <Link href={{
-                        pathname: '/'
-                    }}>
-                        <a>Go back</a>
-                    </Link>
-                </Box>
+                    <Button colorScheme={'green'}>
+                        <Link href={'/'}>Go back</Link>
+                    </Button>
                 <Spacer/>
                 <Box>
                     <Button type={'submit'}
@@ -45,5 +42,6 @@ export default () => {
                 </Box>
             </Flex>
         </FormControl>
+        </Container>
     )
 }
