@@ -63,16 +63,6 @@ const DonationSuccessfull: NextPage = () => {
                 <Link onClick={() => console.log('share to twitter')} href={'#'}>
                     <Text textDecoration={'underline'}>Share tweet</Text>
                 </Link>
-                <Link onClick={() => console.log('share to twitter')} href={'#'}>
-                    <Text textDecoration={'underline'}>displayst</Text>
-                </Link>
-
-                <a onClick={() => console.log('share to twitter')} href={'#'}>
-                    <Text textDecoration={'underline'}>View inital state</Text>
-                </a>
-                <a onClick={() => console.log('share to twitter')} href={'#'}>
-                    <Text textDecoration={'underline'}>update state</Text>
-                </a>
             </Flex>
         </>
     );
