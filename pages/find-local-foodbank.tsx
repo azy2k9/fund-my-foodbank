@@ -186,6 +186,8 @@ function MAP() {
                                         <Stack>
                                             {foodbanks.map((foodbank, j) => (
                                                 <Checkbox
+                                                    colorScheme='#718096'
+                                                    iconColor='#171923'
                                                     border={'solid black 1px'}
                                                     borderRadius={'5px'}
                                                     pl={'3'}
