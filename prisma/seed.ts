@@ -1,5 +1,5 @@
 import { Foodbank, PrismaClient, User } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 
 export const foodbank = {
     name: 'Manchester foodbank',
@@ -9,7 +9,7 @@ export const foodbank = {
 export const user = {
     name: 'test',
     email: 'test@gmail.com',
-    password: bcrypt.hashSync('test', 10),
+    password: bcrypt.hashSync('test', 'saltysaltsalt'),
 };
 
 const prisma = new PrismaClient();
