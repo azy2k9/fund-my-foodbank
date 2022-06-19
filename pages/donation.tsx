@@ -12,11 +12,11 @@ const Donation: NextPage = () => {
     const [optIn, setOptIn] = useState(false);
 
     const router = useRouter();
-    const { appState, setAppState } = useAppState();
+    const { setAppState } = useAppState();
 
     const handleClick = () => {
         setAppState({
-            name,
+            donator_name: name,
             donator_email: email,
         });
         router.push('/donation-amount');

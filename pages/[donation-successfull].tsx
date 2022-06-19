@@ -2,8 +2,42 @@ import { NextPage } from 'next';
 import { Box, Container, Flex, Text } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/image';
 import Link from 'next/link';
+import useAppState from '../hooks/useAppState';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const DonationSuccessfull: NextPage = () => {
+    const router = useRouter();
+    const params = router.query;
+
+    useEffect(() => {
+        if (router.query) {
+            if (
+                Object.prototype.hasOwnProperty.call(router.query, 'amount') &&
+                Object.prototype.hasOwnProperty.call(router.query, 'donator_name') &&
+                Object.prototype.hasOwnProperty.call(router.query, 'donator_email') &&
+                Object.prototype.hasOwnProperty.call(router.query, 'foodbank_names')
+            ) {
+                const fetchData = async () => {
+                    const res = await fetch('/api/notify-foodbank', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            amount: router.query.amount,
+                            donator_email: router.query.donator_email,
+                            donator_name: router.query.donator_name,
+                            foodbank_names: JSON.parse(router.query.foodbank_names as string),
+                        }),
+                    }).then((res) => res.json());
+                };
+
+                fetchData();
+            }
+        }
+    }, [params]);
+
     return (
         <>
             <Container maxWidth={550}>

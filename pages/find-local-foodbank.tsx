@@ -16,6 +16,7 @@ import { returnClosestFoodbanks } from '../utils/foodbankSorter';
 import Feature from './components/featuredisplay';
 import { CheckIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/router';
+import useAppState from '../hooks/useAppState';
 
 const FindLocalFoodbank = () => {
     const router = useRouter();
@@ -32,6 +33,7 @@ const FindLocalFoodbank = () => {
     const [displayCheckboxes, setDisplayCheckboxes] = useState(false);
     // checkbox value
     const [allCheckbox, setAllCheckbox] = useState(null);
+    const { setAppState } = useAppState();
 
     useEffect(() => {
         if (location !== null) {
@@ -102,7 +104,12 @@ const FindLocalFoodbank = () => {
               ));
     const submitFoodbankChoices = () => {
         const myChoosenFoodbanks = [...allCheckbox].filter((obj) => obj.checkboxDefault === true);
-        console.log(myChoosenFoodbanks);
+        const foodbankNames = myChoosenFoodbanks.map((i) => i.name);
+
+        setAppState({
+            foodbanks: foodbankNames,
+        });
+
         router.push('/donation');
     };
 
