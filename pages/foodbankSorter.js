@@ -26,8 +26,9 @@ export function returnClosestFoodbanks(myLat, myLng) {
   }
 
   jsonData.forEach((obk) => {
+    const foodbankMain = obk.foodbank_information;
     const boroughName = obk.foodbank_information.name;
-    const boroughFoodbanks = obk.foodbank_centre;
+    let boroughFoodbanks = obk.foodbank_centre;
     const boroughLat = obk.foodbank_information.geolocation.lat;
     const boroughLng = obk.foodbank_information.geolocation.lng;
 
@@ -38,7 +39,24 @@ export function returnClosestFoodbanks(myLat, myLng) {
       boroughLng
     );
     if (newDistance < distance) {
-      console.log("something here: ", boroughName);
+      // passing main foodbank to array of foodbanks for the borough
+      const mainBoroughFoodbank = {
+        foodbank_name: foodbankMain.name,
+        centre_geolocation: foodbankMain.geolocation,
+        foodbank_telephone_number: foodbankMain.telephone_number,
+      };
+      // if foodbank center is false create a new array and add the main foodbank
+      if (boroughFoodbanks == false) {
+        boroughFoodbanks = [mainBoroughFoodbank];
+      } else {
+        if (
+          boroughFoodbanks.some(
+            (val) => val.foodbank_name !== mainBoroughFoodbank.foodbank_name
+          )
+        ) {
+          boroughFoodbanks.push(mainBoroughFoodbank);
+        }
+      }
       foodbank_list.push(boroughFoodbanks);
       distance = newDistance;
       // keep array length to 3
@@ -47,16 +65,11 @@ export function returnClosestFoodbanks(myLat, myLng) {
       }
     }
   });
-  /**
-   * foodbank_information is the borough and a foodbank
-   * line 42, if the foodbank_center doesn't exist it returns false
-   */
-  console.log(foodbank_list);
+
+  // turn 2d array into 1d
   let new_foodbank_list = [];
   foodbank_list.forEach((arr) => {
-    if (arr) {
-      new_foodbank_list.push(...arr);
-    }
+    new_foodbank_list.push(...arr);
   });
 
   // add distance to each foodbank object
