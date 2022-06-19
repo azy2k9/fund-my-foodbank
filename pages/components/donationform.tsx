@@ -1,6 +1,6 @@
 import {Button, Checkbox, FormControl, FormLabel, Input} from "@chakra-ui/react";
 import Link from "next/link";
-import {Box, Flex, Spacer} from "@chakra-ui/layout";
+import {Box, Container, Flex, Spacer} from "@chakra-ui/layout";
 
 export default () => {
     //TODO const [required, updateRequired] = useState();
@@ -13,6 +13,7 @@ export default () => {
 
 
     return (
+        <Container maxWidth={750}>
         <FormControl as={'fieldset'}
                      display={'flex'}
                      flexDir={'column'}
@@ -41,5 +42,6 @@ export default () => {
                 </Box>
             </Flex>
         </FormControl>
+        </Container>
     )
 }

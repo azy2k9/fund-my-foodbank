@@ -1,9 +1,13 @@
-import {NextPage} from "next";
 import DonationForm from './components/donationform';
+import { NextPage } from 'next';
+import Navigationbar from "./components/navigationbar";
 
 const Donation: NextPage = () => {
     return (
-        <DonationForm></DonationForm>
+        <>
+            <Navigationbar/>
+            <DonationForm></DonationForm>
+        </>
     )
 };
 
