@@ -2,9 +2,23 @@ import {NextPage} from "next";
 import {Box, Container, Flex, Text} from "@chakra-ui/layout";
 import {Image} from "@chakra-ui/image";
 import Link from "next/link";
+import { useContextState } from '../lib/state';
+import { useEffect } from 'react';
 
 
 const DonationSuccessfull: NextPage = () => {
+    const { state, setContextState } = useContextState()
+    const click = () => {
+        setContextState({
+            something:false
+        })
+        console.log(state)
+
+    }
+    const displayState = () => {
+        console.log(state)
+    }
+
     return (
         <>
         <Container maxWidth={550}>
@@ -32,7 +46,11 @@ const DonationSuccessfull: NextPage = () => {
             </Box>
             <Flex justifyContent={'center'} gap={30} mt={8}>
                 <Image src={'/twitter.svg'} width={30} height={30}/>
-                <Link href={'#'}><Text textDecoration={'underline'}>Share tweet</Text></Link>
+                <Link onClick={()=>click()} href={'#'}><Text textDecoration={'underline'}>Share tweet</Text></Link>
+                <Link onClick={()=>displayState()} href={'#'}><Text textDecoration={'underline'}>displayst</Text></Link>
+
+                <a onClick={()=>click()} href={'#'}><Text textDecoration={'underline'}>View inital state</Text></a>
+                <a onClick={()=>displayState()} href={'#'}><Text textDecoration={'underline'}>update state</Text></a>
             </Flex>
             </>
     )
