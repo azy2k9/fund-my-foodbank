@@ -6,7 +6,7 @@ interface FeatureProps {
     icon: ReactElement;
 }
 
-export const Feature = ({ title, icon }: FeatureProps) => {
+const Feature = ({ title, icon }: FeatureProps) => {
     return (
         <Box backgroundColor={'#48BB78'} borderRadius={'3px'}>
             <Flex alignItems='center' height={'100%'} backgroundColor={'#C6F6D5'} ml={'2'}>
@@ -28,3 +28,4 @@ export const Feature = ({ title, icon }: FeatureProps) => {
         </Box>
     );
 };
+export default Feature;

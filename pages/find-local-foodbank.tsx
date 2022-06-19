@@ -13,7 +13,7 @@ import {
     Stack,
 } from '@chakra-ui/react';
 import { returnClosestFoodbanks } from '../utils/foodbankSorter';
-import { Feature } from './components/featuredisplay';
+import Feature from './components/featuredisplay';
 import { CheckIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/router';
 
