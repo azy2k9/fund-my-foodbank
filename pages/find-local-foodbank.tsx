@@ -102,7 +102,6 @@ const FindLocalFoodbank = () => {
               ));
     const submitFoodbankChoices = () => {
         const myChoosenFoodbanks = [...allCheckbox].filter((obj) => obj.checkboxDefault === true);
-        // data of choosen foodbanks
         console.log(myChoosenFoodbanks);
         router.push('/donation');
     };

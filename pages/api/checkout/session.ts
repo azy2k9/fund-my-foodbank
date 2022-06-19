@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { type } from 'os';
 
 import Stripe from 'stripe';
 import prisma from '../../../utils/prisma';
@@ -7,7 +8,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2020-08-27',
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+type Data = {
+    foodbank_name: string;
+    donator_email: string;
+    amount: number;
+};
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     if (req.method === 'POST') {
         try {
             const { plan: lookup_key } = req.body;
@@ -41,7 +48,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             //     }
             // });
 
-            res.status(200).json({ sessionId: session.id });
+            res.status(200).json({ 
+                amount: ,
+                foodbank_name: ,
+                donator_email: 
+             });
         } catch (err) {
             res.status(err.statusCode || 500).json(err.message);
         }
