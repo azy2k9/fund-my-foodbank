@@ -1,5 +1,5 @@
 import React from 'react';
-import useSetState from '../../hooks/useSetState';
+import useSetState from '../hooks/useSetState';
 
 interface Context {
     appState: AppContextInterface;

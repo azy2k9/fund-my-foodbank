@@ -3,7 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Fonts from './components/fonts';
 import Theme from '../theme';
 import Navigationbar from './components/navigationbar';
-import { AppContextProvider } from './context/state';
+import { AppContextProvider } from '../context/state';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     return (
