@@ -14,7 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
                 service: 'gmail',
                 auth: {
                     user: process.env.GMAIL_USER,
-                    pass: 'pjuvzjtphrzfbdad',
+                    pass: process.env.GMAIL_PASS,
                 },
             });
             const { foodbank_names, donator_email, amount } = req.body;
