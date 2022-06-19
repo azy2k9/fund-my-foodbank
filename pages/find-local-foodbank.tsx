@@ -15,10 +15,10 @@ import {
 import { returnClosestFoodbanks } from '../utils/foodbankSorter';
 import { Feature } from './components/featuredisplay';
 import { CheckIcon } from '@chakra-ui/icons';
-
-const center = { lat: 51.5, lng: -0.1 };
+import { useRouter } from 'next/router';
 
 const FindLocalFoodbank = () => {
+    const router = useRouter();
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY,
         libraries: ['places'],
@@ -101,7 +101,7 @@ const FindLocalFoodbank = () => {
               ));
     const submitFoodbankChoices = () => {
         const myChoosenFoodbanks = [...allCheckbox].filter((obj) => obj.checkboxDefault === true);
-        // navigate to donations page
+        router.push('/donation');
     };
 
     const center = location ? location : { lat: 51.507, lng: -0.127 }; //useMemo(() => ({ lat: 44, lng: -80 }), []);
@@ -138,7 +138,6 @@ const FindLocalFoodbank = () => {
                             <GoogleMap
                                 zoom={12}
                                 options={{
-                                    //zoomControl: false,
                                     streetViewControl: false,
                                     mapTypeControl: false,
                                 }}
