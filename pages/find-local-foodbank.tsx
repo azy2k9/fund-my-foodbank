@@ -29,12 +29,25 @@ function MAP() {
   // array that conatins the closest foodbanks
   const [foodbanks, setFoodbanks] = useState(null);
   const [displayCheckboxes, setDisplayCheckboxes] = useState(false);
+  // checkbox value
+  const [allCheckbox, setAllCheckbox] = useState(null);
 
   useEffect(() => {
     if (location !== null) {
       const myFoodbanks = returnClosestFoodbanks(location.lat, location.lng);
       setFoodbanks(myFoodbanks);
       setDisplayCheckboxes(true);
+      // loop through and set default false for all checkboxes
+      let checkArr = [];
+      myFoodbanks.forEach((foodbank, i) => {
+        const foodbankCheck = {
+          name: foodbank.foodbank_name,
+          checkboxIndex: i,
+          checkboxDefault: false,
+        };
+        checkArr.push(foodbankCheck);
+      });
+      setAllCheckbox(checkArr);
     }
   }, [location]);
 
@@ -52,13 +65,23 @@ function MAP() {
     navigator.geolocation.getCurrentPosition(success, error);
   };
 
+  const markerClick = (index) => {
+    const currentVal = allCheckbox[index].checkboxDefault;
+    const changedObject = {
+      ...allCheckbox[index],
+      checkboxDefault: !currentVal,
+    };
+    let filteredArray = [...allCheckbox];
+    filteredArray.splice(index, 1, changedObject);
+    setAllCheckbox(filteredArray);
+  };
   const foodbankMarkers =
     foodbanks === null
       ? console.log("no foodbanks given")
       : foodbanks.map((foodbank, i) => (
           <Marker
             onClick={() => {
-              console.log(i, " has been clicked");
+              markerClick(i);
             }}
             key={i}
             icon={{
@@ -70,6 +93,12 @@ function MAP() {
             }}
           />
         ));
+  const submitFoodbankChoices = () => {
+    const myChoosenFoodbanks = [...allCheckbox].filter(
+      (obj) => obj.checkboxDefault === true
+    );
+    console.log("You have choosen these foodbanks: ", myChoosenFoodbanks);
+  };
 
   const center = location; //useMemo(() => ({ lat: 44, lng: -80 }), []);
   if (!isLoaded && location === null) return <div>...loading</div>;
@@ -126,10 +155,28 @@ function MAP() {
             {displayCheckboxes
               ? foodbanks.map((foodbank, j) => (
                   <Box key={j}>
-                    <Checkbox>{foodbank.foodbank_name}</Checkbox>
+                    <Checkbox
+                      isChecked={allCheckbox[j].checkboxDefault}
+                      onChange={() => {
+                        markerClick(j);
+                      }}
+                    >
+                      {foodbank.foodbank_name}
+                    </Checkbox>
                   </Box>
                 ))
               : ""}
+            <Box m="2">
+              <Button
+                colorScheme="blue"
+                m="2"
+                onClick={() => {
+                  submitFoodbankChoices();
+                }}
+              >
+                Submit your selection
+              </Button>
+            </Box>
           </Box>
         </Flex>
       </Box>
