@@ -11,8 +11,10 @@ import {
     createIcon, SimpleGrid,
 } from '@chakra-ui/react';
 import Card from './card';
+import { useRouter } from 'next/router';
 
 export default function HomePage() {
+    const router = useRouter();
     return (
         <>
             <Container maxW={'3xl'}>
@@ -42,6 +44,7 @@ export default function HomePage() {
                             bg={'green.400'}
                             rounded={'full'}
                             px={6}
+                            onClick={() => router.push('/find-local-foodbank')}
                             _hover={{
                                 bg: 'green.500',
                             }}>
