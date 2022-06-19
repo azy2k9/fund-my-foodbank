@@ -59,6 +59,7 @@ export default function Navigationbar() {
                         <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
                                 <Button
+                                    key={link.route}
                                     px={2}
                                     variant={'ghost'}
                                     py={1}
