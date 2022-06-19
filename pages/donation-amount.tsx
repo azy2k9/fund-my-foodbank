@@ -49,13 +49,13 @@ const DonationAmount = () => {
             <Product
                 name='medium'
                 description='A medium donation of only £10 per month will help us to keep 1 person fed for a full week'
-                value={5}
+                value={10}
                 onDonate={(plan: string) => handleDonate(plan)}
             />
             <Product
                 name='large'
                 description='A small donation of only £20 per month will help us to keep 1 person fed for 2 weeks'
-                value={5}
+                value={20}
                 onDonate={(plan: string) => handleDonate(plan)}
             />
         </SimpleGrid>
