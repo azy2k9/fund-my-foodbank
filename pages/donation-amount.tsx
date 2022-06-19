@@ -1,10 +1,41 @@
 import { SimpleGrid } from '@chakra-ui/layout';
+import { useToast } from '@chakra-ui/react';
+import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
 import Product from './components/product';
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
 const DonationAmount = () => {
-    const handleDonate = (plan: string) => {
-        console.log(plan);
+    const toast = useToast({ isClosable: true, status: 'error', position: 'bottom-right' });
+
+    const handleDonate = async (plan: string) => {
+        const { sessionId } = await fetch('/api/checkout/session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ plan }),
+        }).then((res) => res.json());
+
+        if (!sessionId) {
+            toast({
+                title: 'Error',
+                description: 'Couldnt find your checkout session',
+            });
+        } else {
+            const stripe = await stripePromise;
+            const { error } = await stripe.redirectToCheckout({
+                sessionId,
+            });
+
+            if (error) {
+                toast({
+                    title: 'Error',
+                    description: error.message,
+                });
+            }
+        }
     };
 
     return (
