@@ -70,17 +70,18 @@ export default function Navigationbar() {
                             ))}
                         </HStack>
                     </HStack>
-                    {/* <Flex alignItems={'center'}>
+                    <Flex alignItems={'center'}>
                         <Button
                             variant={'solid'}
                             style={{ backgroundColor: '#48bb78' }}
                             size={'sm'}
                             mr={4}
                             leftIcon={<AddIcon />}
+                            onClick={() => router.push('/feed-back-form')}
                         >
-                            Food Bank Sign in
+                            Leave Feedback
                         </Button>
-                    </Flex> */}
+                    </Flex>
                 </Flex>
                 <Divider></Divider>
             </Box>
