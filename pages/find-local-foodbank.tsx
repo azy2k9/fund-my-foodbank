@@ -45,6 +45,7 @@ const FindLocalFoodbank = () => {
                     name: foodbank.foodbank_name,
                     checkboxIndex: i,
                     checkboxDefault: false,
+                    foodbankInfo: foodbank,
                 };
                 checkArr.push(foodbankCheck);
             });
@@ -101,7 +102,8 @@ const FindLocalFoodbank = () => {
               ));
     const submitFoodbankChoices = () => {
         const myChoosenFoodbanks = [...allCheckbox].filter((obj) => obj.checkboxDefault === true);
-        router.push('/donation');
+        console.log(myChoosenFoodbanks);
+        //router.push(`/donation?data=${JSON.stringify(myChoosenFoodbanks)}`);
     };
 
     const center = location ? location : { lat: 51.507, lng: -0.127 }; //useMemo(() => ({ lat: 44, lng: -80 }), []);
