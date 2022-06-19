@@ -19,8 +19,10 @@ function MAP() {
     const [allCheckbox, setAllCheckbox] = useState(null);
 
     useEffect(() => {
+        console.log('a: ', foodbanks);
         if (location !== null) {
             const myFoodbanks = returnClosestFoodbanks(location.lat, location.lng);
+            console.log('b: ', myFoodbanks);
             setFoodbanks(myFoodbanks);
             setDisplayCheckboxes(true);
             // loop through and set default false for all checkboxes
@@ -39,10 +41,15 @@ function MAP() {
 
     const getPosition = () => {
         const success = (position) => {
-            setLocation({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-            });
+            if (
+                location?.lat !== position.coords.latitude ||
+                location?.lng !== position.coords.longitude
+            ) {
+                setLocation({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
+            }
         };
 
         const error = (err) => {
@@ -82,6 +89,7 @@ function MAP() {
     const submitFoodbankChoices = () => {
         const myChoosenFoodbanks = [...allCheckbox].filter((obj) => obj.checkboxDefault === true);
         console.log('You have choosen these foodbanks: ', myChoosenFoodbanks);
+        // navigate to donations page
     };
 
     const center = location; //useMemo(() => ({ lat: 44, lng: -80 }), []);
