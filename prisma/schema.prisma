@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String
+  email     String     @unique
+  password  String
+  feedback  Feedback[]
+  donations Donation[]
+}
+
+model Foodbank {
+  id                Int        @id @default(autoincrement())
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  name              String
+  location          String
+  address           String?
+  stripe_account_id String?
+  twitter_handle    String?
+  facebook_page     String?
+  donations         Donation[]
+}
+
+model Donation {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  amount     Int
+  total      Int
+  email      String
+  foodbank   Foodbank[]
+  feedback   Feedback?  @relation(fields: [feedbackId], references: [id])
+  feedbackId Int?
+  user       User?      @relation(fields: [userId], references: [id])
+  userId     Int?
+}
+
+model Feedback {
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  message   String
+  template  String
+  donation  Donation[]
+  user      User       @relation(fields: [userId], references: [id])
+  userId    Int
+}
