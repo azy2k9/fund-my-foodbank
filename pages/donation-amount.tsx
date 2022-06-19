@@ -15,6 +15,8 @@ const DonationAmount = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
+            // TODO: Retrieve the email / user and send them to the api
+            // TODO: Retrieve the selected foodbanks and send them to the api
             body: JSON.stringify({ plan }),
         }).then((res) => res.json());
 

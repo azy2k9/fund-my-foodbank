@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import Stripe from 'stripe';
+import prisma from '../../../utils/prisma';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     // https://github.com/stripe/stripe-node#configuration
     apiVersion: '2020-08-27',
@@ -22,7 +23,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 line_items: [
                     {
                         price: price.id,
-                        // For metered billing, do not pass quantity
                         quantity: 1,
                     },
                 ],
@@ -30,6 +30,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 success_url: `${req.headers.origin}/donation-successfull`,
                 cancel_url: `${req.headers.origin}/checkout?cancelled=true`,
             });
+
+            // const donationCreated = await prisma.donation.create({
+            //     data: {
+            //         amount: price.unit_amount,
+            //         email:  "test@gmail.com",
+            //         total: price.unit_amount,
+            //         // TODO: Add the selected foodbank(s) to this donation.
+            //         // TODO: Check if user is authed and if they are, connect the user to this record
+            //     }
+            // });
 
             res.status(200).json({ sessionId: session.id });
         } catch (err) {
