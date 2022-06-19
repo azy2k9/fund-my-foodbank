@@ -27,13 +27,12 @@ export function returnClosestFoodbanks(myLat, myLng) {
 
     jsonData.forEach((obk) => {
         const foodbankMain = obk.foodbank_information;
-        const boroughName = obk.foodbank_information.name;
-        let boroughFoodbanks = obk.foodbank_centre;
         const boroughLat = obk.foodbank_information.geolocation.lat;
         const boroughLng = obk.foodbank_information.geolocation.lng;
+        let boroughFoodbanks = obk.foodbank_centre;
 
         const newDistance = getDistanceFromLatLonInKm(myLat, myLng, boroughLat, boroughLng);
-        if (newDistance < distance) {
+        if (newDistance < 30) {
             // passing main foodbank to array of foodbanks for the borough
             const mainBoroughFoodbank = {
                 foodbank_name: foodbankMain.name,
@@ -44,23 +43,12 @@ export function returnClosestFoodbanks(myLat, myLng) {
             if (boroughFoodbanks == false) {
                 boroughFoodbanks = [mainBoroughFoodbank];
             }
-            foodbank_list.push(boroughFoodbanks);
-            distance = newDistance;
-            // keep array length to 3
-            if (foodbank_list.length > 5) {
-                foodbank_list = foodbank_list.slice(1);
-            }
+
+            foodbank_list.push(...boroughFoodbanks);
         }
     });
 
-    // turn 2d array into 1d
-    let new_foodbank_list = [];
-    foodbank_list.forEach((arr) => {
-        new_foodbank_list.push(...arr);
-    });
-
-    // add distance to each foodbank object
-    new_foodbank_list.forEach((foodbank) => {
+    foodbank_list.forEach((foodbank) => {
         const distanceFromLocation = getDistanceFromLatLonInKm(
             myLat,
             myLng,
@@ -71,10 +59,10 @@ export function returnClosestFoodbanks(myLat, myLng) {
     });
 
     // sort food banks using distance
-    new_foodbank_list.sort((a, b) => parseFloat(a.distanceToMe) - parseFloat(b.distanceToMe));
+    foodbank_list.sort((a, b) => parseFloat(a.distanceToMe) - parseFloat(b.distanceToMe));
 
-    if (new_foodbank_list.length > 7) {
-        return new_foodbank_list.splice(0, 6);
+    if (foodbank_list.length > 7) {
+        return foodbank_list.splice(0, 6);
     }
-    return new_foodbank_list;
+    return foodbank_list;
 }

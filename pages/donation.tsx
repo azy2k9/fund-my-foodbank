@@ -3,8 +3,10 @@ import { Button, Checkbox, FormControl, FormLabel, Input, Select } from '@chakra
 import Link from 'next/link';
 import { Box, Container, Flex, Spacer } from '@chakra-ui/layout';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 const Donation: NextPage = () => {
+    const [donationData, setDonationData] = useState(null);
     const router = useRouter();
 
     return (
