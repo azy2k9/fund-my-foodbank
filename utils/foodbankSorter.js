@@ -27,6 +27,8 @@ export function returnClosestFoodbanks(myLat, myLng) {
 
     jsonData.forEach((obk) => {
         const foodbankMain = obk.foodbank_information;
+        const boroughLat = obk.foodbank_information.geolocation.lat;
+        const boroughLng = obk.foodbank_information.geolocation.lng;
         let boroughFoodbanks = obk.foodbank_centre;
 
         const newDistance = getDistanceFromLatLonInKm(myLat, myLng, boroughLat, boroughLng);
