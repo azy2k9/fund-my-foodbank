@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
 import { Box, Button, Text, Input, Flex, Center, Checkbox } from '@chakra-ui/react';
 import { returnClosestFoodbanks } from '../utils/foodbankSorter';
 
-function MAP() {
+const center = { lat: 51.5, lng: -0.1 };
+
+const FindLocalFoodbank = () => {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY,
         libraries: ['places'],
@@ -19,10 +21,14 @@ function MAP() {
     const [allCheckbox, setAllCheckbox] = useState(null);
 
     useEffect(() => {
-        console.log('a: ', foodbanks);
+        if (isLoaded) {
+            setLocation(center);
+        }
+    }, [isLoaded]);
+
+    useEffect(() => {
         if (location !== null) {
             const myFoodbanks = returnClosestFoodbanks(location.lat, location.lng);
-            console.log('b: ', myFoodbanks);
             setFoodbanks(myFoodbanks);
             setDisplayCheckboxes(true);
             // loop through and set default false for all checkboxes
@@ -88,11 +94,9 @@ function MAP() {
               ));
     const submitFoodbankChoices = () => {
         const myChoosenFoodbanks = [...allCheckbox].filter((obj) => obj.checkboxDefault === true);
-        console.log('You have choosen these foodbanks: ', myChoosenFoodbanks);
         // navigate to donations page
     };
 
-    const center = location; //useMemo(() => ({ lat: 44, lng: -80 }), []);
     if (!isLoaded && location === null) return <div>...loading</div>;
     return (
         <Center>
@@ -105,14 +109,16 @@ function MAP() {
                         <GoogleMap
                             zoom={11}
                             options={{
-                                //zoomControl: false,
                                 streetViewControl: false,
                                 mapTypeControl: false,
+                                zoomControlOptions: {
+                                    position: google.maps.ControlPosition.RIGHT_CENTER,
+                                },
                             }}
-                            center={center}
-                            mapContainerStyle={{ width: '300px', height: '400px' }}
+                            center={location}
+                            mapContainerStyle={{ width: '500px', height: '500px' }}
                         >
-                            <Marker position={center} />
+                            {/* <Marker position={center} /> */}
                             {foodbankMarkers}
                         </GoogleMap>
                     </Box>
@@ -172,5 +178,5 @@ function MAP() {
             </Box>
         </Center>
     );
-}
-export default MAP;
+};
+export default FindLocalFoodbank;
