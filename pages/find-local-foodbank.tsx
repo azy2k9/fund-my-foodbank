@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
 import { Box, Button, Text, Input, Flex, Center, Checkbox } from '@chakra-ui/react';
-import { returnClosestFoodbanks } from './foodbankSorter';
+import { returnClosestFoodbanks } from '../utils/foodbankSorter';
 
 function MAP() {
     const { isLoaded } = useLoadScript({

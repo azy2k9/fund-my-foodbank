@@ -1,4 +1,4 @@
-import jsonData from '../foodbank-search-data.json';
+import jsonData from './foodbank-search-data.json';
 
 export function returnClosestFoodbanks(myLat, myLng) {
     // Setting initial distance in km
