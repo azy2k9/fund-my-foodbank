@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,8 +13,8 @@ model User {
   name      String
   email     String     @unique
   password  String
-  feedback  Feedback[]
   donations Donation[]
+  feedback  Feedback[]
 }
 
 model Foodbank {
@@ -25,11 +22,11 @@ model Foodbank {
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
   name              String
-  location          String
   address           String?
   stripe_account_id String?
   twitter_handle    String?
   facebook_page     String?
+  location          String
   donations         Donation[]
 }
 
@@ -38,13 +35,13 @@ model Donation {
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   amount     Int
-  total      Int
   email      String
-  foodbank   Foodbank[]
-  feedback   Feedback?  @relation(fields: [feedbackId], references: [id])
   feedbackId Int?
-  user       User?      @relation(fields: [userId], references: [id])
   userId     Int?
+  total      Int
+  feedback   Feedback?  @relation(fields: [feedbackId], references: [id])
+  user       User?      @relation(fields: [userId], references: [id])
+  foodbank   Foodbank[]
 }
 
 model Feedback {
@@ -53,7 +50,7 @@ model Feedback {
   updatedAt DateTime   @updatedAt
   message   String
   template  String
-  donation  Donation[]
-  user      User       @relation(fields: [userId], references: [id])
   userId    Int
+  user      User       @relation(fields: [userId], references: [id])
+  donation  Donation[]
 }

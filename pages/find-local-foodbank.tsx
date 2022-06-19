@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
 import {
     Box,
@@ -16,7 +16,9 @@ import { returnClosestFoodbanks } from '../utils/foodbankSorter';
 import { Feature } from './components/featuredisplay';
 import { CheckIcon } from '@chakra-ui/icons';
 
-function MAP() {
+const center = { lat: 51.5, lng: -0.1 };
+
+const FindLocalFoodbank = () => {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY,
         libraries: ['places'],
@@ -99,7 +101,6 @@ function MAP() {
               ));
     const submitFoodbankChoices = () => {
         const myChoosenFoodbanks = [...allCheckbox].filter((obj) => obj.checkboxDefault === true);
-        console.log('You have choosen these foodbanks: ', myChoosenFoodbanks);
         // navigate to donations page
     };
 
@@ -233,5 +234,5 @@ function MAP() {
             </Stack>
         </Center>
     );
-}
-export default MAP;
+};
+export default FindLocalFoodbank;
