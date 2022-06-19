@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { GoogleMap, Marker, useLoadScript, Autocomplete } from '@react-google-maps/api';
 import {
     Box,
@@ -102,11 +102,12 @@ const FindLocalFoodbank = () => {
               ));
     const submitFoodbankChoices = () => {
         const myChoosenFoodbanks = [...allCheckbox].filter((obj) => obj.checkboxDefault === true);
+        // data of choosen foodbanks
         console.log(myChoosenFoodbanks);
-        //router.push(`/donation?data=${JSON.stringify(myChoosenFoodbanks)}`);
+        router.push('/donation');
     };
 
-    const center = location ? location : { lat: 51.507, lng: -0.127 }; //useMemo(() => ({ lat: 44, lng: -80 }), []);
+    const center = location ? location : { lat: 51.507, lng: -0.127 };
     if (!isLoaded && location === null) return <div>...loading</div>;
     return (
         <Center>
