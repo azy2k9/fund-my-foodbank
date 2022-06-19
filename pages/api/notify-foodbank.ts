@@ -367,7 +367,7 @@ const getTemplate = ({
                                                                                         alt=""
                                                                                         class="icon"
                                                                                         height="64"
-                                                                                        src="images/option_4__Basket_icon_with_circle_2_1.svg"
+                                                                                        src="/option_4__Basket_icon_with_circle_2_1.svg"
                                                                                         style="
                                                                                             display: block;
                                                                                             height: auto;
@@ -514,7 +514,7 @@ const getTemplate = ({
                                                                         >
                                                                             <img
                                                                                 alt="Hands"
-                                                                                src="images/hands.png"
+                                                                                src="/hands.png"
                                                                                 style="
                                                                                     display: block;
                                                                                     height: auto;
@@ -1115,7 +1115,7 @@ const getTemplate = ({
                                                                             <img
                                                                                 alt="Donations"
                                                                                 class="big"
-                                                                                src="images/donations-filled.png"
+                                                                                src="/donations-filled.png"
                                                                                 style="
                                                                                     display: block;
                                                                                     height: auto;
