@@ -135,7 +135,7 @@ function MAP() {
                     <Flex width='auto' m='4'>
                         <Box m='2'>
                             <GoogleMap
-                                zoom={13}
+                                zoom={12}
                                 options={{
                                     //zoomControl: false,
                                     streetViewControl: false,
