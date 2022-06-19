@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import NavBar from './components/navbar';
+import NavBar from './components/navigationbar';
 
 const Donation: NextPage = () => {
     return <NavBar />;
