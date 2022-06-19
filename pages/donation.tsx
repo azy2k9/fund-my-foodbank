@@ -8,7 +8,7 @@ const Donation: NextPage = () => {
     const router = useRouter();
 
     return (
-        <Container maxWidth={750}>
+        <Container maxWidth={700}>
             <FormControl
                 as={'fieldset'}
                 display={'flex'}
