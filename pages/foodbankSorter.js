@@ -88,5 +88,8 @@ export function returnClosestFoodbanks(myLat, myLng) {
     (a, b) => parseFloat(a.distanceToMe) - parseFloat(b.distanceToMe)
   );
 
+  if (new_foodbank_list.length > 6) {
+    return new_foodbank_list.splice(0, 5);
+  }
   return new_foodbank_list;
 }
