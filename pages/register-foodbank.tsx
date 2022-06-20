@@ -1,5 +1,5 @@
 import { Form} from '@chakra-ui/theme/components';
-import { Button, Container, FormControl, FormLabel, Input, SimpleGrid, Box , Text, Center} from '@chakra-ui/react';
+import { Button, Container, FormControl, FormLabel, Input, SimpleGrid, Box , Text, Center, Heading} from '@chakra-ui/react';
 import { CheckIcon, Icon } from '@chakra-ui/icons';
 import { Flex } from '@chakra-ui/layout';
 import Feature from './components/featuredisplay';
@@ -63,9 +63,10 @@ const RegisterFoodBank = () => {
             <Box width='90vw' mt='6'>
             <FormControl  as={'fieldset'} my={10}>
             <SimpleGrid columns={2} spacing={100}>
-                <Box ><Text  fontSize='xl'textAlign={'left'}>
-                Enter your details here
-                </Text>
+            <Box >
+                <Heading as='h4' size='md'>
+                    Enter your details here
+                </Heading>
                 <FormLabel htmlFor='foodbank-name' mt={10}>
                 Food Bank name
                 </FormLabel>
