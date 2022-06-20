@@ -119,7 +119,7 @@ const RegisterFoodBank = () => {
                         _hover={{ background: 'green.700' }}
                         onClick={handleClick}
                     >
-                        Send email to Donators
+                       Enter Stripe account details
                     </Button>
                 </Flex>
             </FormControl>
