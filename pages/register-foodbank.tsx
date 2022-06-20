@@ -6,10 +6,11 @@ import {
     FormLabel,
     Input,
     SimpleGrid,
+    useToast,
     Box,
     Text,
     Center,
-    useToast,
+    Heading,
 } from '@chakra-ui/react';
 import { CheckIcon, Icon } from '@chakra-ui/icons';
 import { Flex } from '@chakra-ui/layout';
@@ -84,9 +85,9 @@ const RegisterFoodBank = () => {
                     <FormControl as={'fieldset'} my={10}>
                         <SimpleGrid columns={2} spacing={100}>
                             <Box>
-                                <Text fontSize='xl' textAlign={'left'}>
+                                <Heading as='h4' size='md'>
                                     Enter your details here
-                                </Text>
+                                </Heading>
                                 <FormLabel htmlFor='foodbank-name' mt={10}>
                                     Food Bank name
                                 </FormLabel>
@@ -123,7 +124,7 @@ const RegisterFoodBank = () => {
                                 _hover={{ background: 'green.700' }}
                                 onClick={handleClick}
                             >
-                                Send email to Donators
+                                Enter Stripe Account Details
                             </Button>
                         </Flex>
                     </FormControl>
