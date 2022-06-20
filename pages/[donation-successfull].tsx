@@ -5,6 +5,7 @@ import Link from 'next/link';
 import useAppState from '../hooks/useAppState';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Head from 'next/head';
 
 const DonationSuccessfull: NextPage = () => {
     const router = useRouter();
@@ -40,6 +41,9 @@ const DonationSuccessfull: NextPage = () => {
 
     return (
         <>
+            <Head>
+                <title>Donation Successful!</title>
+            </Head>
             <Container maxWidth={550}>
                 <Flex mt={10} gap={30} alignItems={'center'} mx={4}>
                     <Box mt={3}>

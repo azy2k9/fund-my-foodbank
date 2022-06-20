@@ -13,7 +13,7 @@ const Feature = ({ title, icon }: FeatureProps) => {
         <Box backgroundColor={'#48BB78'} borderRadius={'3px'} m='1'>
             <Flex alignItems='center' height={'100%'} backgroundColor={'#C6F6D5'} ml={'1'} py='2'>
                 <Flex
-                    w={8}
+                    maxW={30}
                     h={8}
                     align={'center'}
                     justify={'center'}

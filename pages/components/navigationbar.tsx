@@ -76,6 +76,7 @@ export default function Navigationbar() {
                         <Button
                             variant={'solid'}
                             bg={'green.400'}
+                            _hover={{ background: 'green.500' }}
                             color='white'
                             size={'sm'}
                             mr={4}
