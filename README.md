@@ -1,4 +1,4 @@
-# Fund your Foodbank
+# Fund my Food bank
 
 ## _A donation subscripton service to and for your local Foodbanks_
 
@@ -13,7 +13,7 @@
 
 ## Tech
 
-Fund your Foodbank uses the technologies listed below to fully function:
+Fund my Food bank uses the technologies listed below to fully function:
 
 -   [ReactJS] - Frontend development.
 -   [NextJS] - React framework for server side rendering.

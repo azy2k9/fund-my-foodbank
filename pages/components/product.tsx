@@ -1,4 +1,14 @@
-import { Box, Button, chakra, Flex, Link, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import {
+    Box,
+    Button,
+    chakra,
+    Flex,
+    Link,
+    SimpleGrid,
+    Stack,
+    Text,
+    useBreakpointValue,
+} from '@chakra-ui/react';
 
 interface ProductProps {
     name: string;
@@ -8,8 +18,19 @@ interface ProductProps {
 }
 
 export default function Product({ name, value, description, onDonate }: ProductProps) {
+    const justify = useBreakpointValue(['space-evenly', , 'center']);
+
     return (
-        <Box bg='white' _dark={{ bg: 'gray.800' }} px={4} py={24} shadow='base' rounded='md'>
+        <Flex
+            flexDir={'column'}
+            justifyContent={justify}
+            _dark={{ bg: 'gray.800' }}
+            px={4}
+            h='400px'
+            shadow='dark-lg'
+            textAlign={'center'}
+            rounded='md'
+        >
             <chakra.p
                 mb={1}
                 fontSize='xs'
@@ -58,20 +79,19 @@ export default function Product({ name, value, description, onDonate }: ProductP
                     py={3}
                     border='solid transparent'
                     fontWeight='bold'
-                    rounded='md'
                     shadow='md'
                     _light={{ color: 'white' }}
-                    bg='brand.600'
-                    _dark={{ bg: 'brand.500' }}
+                    bg='green.400'
+                    _dark={{ bg: 'green.500' }}
                     _hover={{
-                        bg: 'brand.700',
-                        _dark: { bg: 'brand.600' },
+                        bg: 'green.600',
+                        _dark: { bg: 'green.600' },
                     }}
                     onClick={() => onDonate(name, value)}
                 >
                     Donate
                 </Button>
             </Stack>
-        </Box>
+        </Flex>
     );
 }

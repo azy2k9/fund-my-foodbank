@@ -18,7 +18,7 @@ export default function HomePage() {
     const router = useRouter();
     return (
         <>
-            <Container maxW={'3xl'}>
+            <Container maxW={'5xl'}>
                 <Stack
                     as={Box}
                     textAlign={'center'}
@@ -30,11 +30,10 @@ export default function HomePage() {
                         fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
                         lineHeight={'110%'}
                     >
-                        Fund your <span style={{ color: '#48bb78' }}>Food Bank</span>
+                        Fund My <span style={{ color: '#48bb78' }}>Food Bank</span>
                     </Heading>
                     <Text color={'gray.500'}>
-                        We make it easier to donate equally to your local food banks. Support your
-                        community with us!
+                        Donate equally to your local food banks to help those in need.
                     </Text>
                     <Stack
                         direction={'column'}
@@ -46,7 +45,6 @@ export default function HomePage() {
                         <Button
                             colorScheme={'green'}
                             bg={'green.400'}
-                            rounded={'full'}
                             px={6}
                             onClick={() => router.push('/find-local-foodbank')}
                             _hover={{
@@ -86,7 +84,6 @@ export default function HomePage() {
                         <Button
                             colorScheme={'green'}
                             bg={'green.400'}
-                            rounded={'full'}
                             px={6}
                             _hover={{
                                 bg: 'green.500',

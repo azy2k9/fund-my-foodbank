@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@chakra-ui/layout';
+import { Container, Flex, SimpleGrid, VStack } from '@chakra-ui/layout';
 import { useToast } from '@chakra-ui/react';
 import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
@@ -45,31 +45,38 @@ const DonationAmount = () => {
                 description: error.message,
             });
         }
-        // }
     };
 
     return (
-        <SimpleGrid columns={[1, , 3]} gap='24px' mx='auto' textAlign={['left', , 'center']}>
-            <Product
-                name='small'
-                description='A small donation of only £5 per month will help us to keep 1 person fed for 2 whole days'
-                value={5}
-                onDonate={(plan: string, amount: number) => handleDonate(plan, amount)}
-            />
-            <Product
-                name='medium'
-                description='A medium donation of only £10 per month will help us to keep 1 person fed for a full week'
-                value={10}
-                onDonate={(plan: string, amount: number) => handleDonate(plan, amount)}
-            />
+        <Container h='90vh' maxWidth={['xl', , '6xl']} display='flex'>
+            <SimpleGrid
+                alignContent={'center'}
+                columns={[1, , 3]}
+                gap='24px'
+                mx='auto'
+                textAlign={['left', , 'center']}
+            >
+                <Product
+                    name='small'
+                    description='A small donation of only £5 per month will help us to keep 1 person fed for 2 whole days'
+                    value={5}
+                    onDonate={(plan: string, amount: number) => handleDonate(plan, amount)}
+                />
+                <Product
+                    name='medium'
+                    description='A medium donation of only £10 per month will help us to keep 1 person fed for a full week'
+                    value={10}
+                    onDonate={(plan: string, amount: number) => handleDonate(plan, amount)}
+                />
 
-            <Product
-                name='large'
-                description='A small donation of only £20 per month will help us to keep 1 person fed for 2 weeks'
-                value={20}
-                onDonate={(plan: string, amount: number) => handleDonate(plan, amount)}
-            />
-        </SimpleGrid>
+                <Product
+                    name='large'
+                    description='A small donation of only £20 per month will help us to keep 1 person fed for 2 weeks'
+                    value={20}
+                    onDonate={(plan: string, amount: number) => handleDonate(plan, amount)}
+                />
+            </SimpleGrid>
+        </Container>
     );
 };
 

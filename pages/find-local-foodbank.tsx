@@ -122,25 +122,27 @@ const FindLocalFoodbank = () => {
                     <Box m='3'>
                         <Text fontSize='3xl'>Donating to your local food banks</Text>
                     </Box>
-                    <SimpleGrid columns={{ base: 1, md: 4 }} spacing={10}>
-                        <Feature
-                            icon={<Icon as={CheckIcon} w={5} h={5} />}
-                            title={'Find your local food banks'}
-                        />
-                        <Feature
-                            icon={<Icon as={CheckIcon} w={5} h={5} />}
-                            title={'Split your donantion equally'}
-                        />
-                        <Feature
-                            icon={<Icon as={CheckIcon} w={5} h={5} />}
-                            title={'Receive updates about how your donations helped'}
-                        />
-                        <Feature
-                            icon={<Icon as={CheckIcon} w={5} h={5} />}
-                            title={'Support your community'}
-                        />
-                    </SimpleGrid>
-                    <Flex width='auto' m='4' justifyContent={'center'}>
+                    <Box>
+                        <SimpleGrid columns={{ base: 1, md: 4 }} spacing={10}>
+                            <Feature
+                                icon={<Icon as={CheckIcon} w={5} h={5} />}
+                                title={'Find your local food banks'}
+                            />
+                            <Feature
+                                icon={<Icon as={CheckIcon} w={5} h={5} />}
+                                title={'Split your donantion equally'}
+                            />
+                            <Feature
+                                icon={<Icon as={CheckIcon} w={5} h={5} />}
+                                title={'Receive updates about how your donations helped'}
+                            />
+                            <Feature
+                                icon={<Icon as={CheckIcon} w={5} h={5} />}
+                                title={'Support your community'}
+                            />
+                        </SimpleGrid>
+                    </Box>
+                    <Flex width='auto' m='4'>
                         <Box m='2'>
                             <GoogleMap
                                 zoom={12}
@@ -149,11 +151,7 @@ const FindLocalFoodbank = () => {
                                     mapTypeControl: false,
                                 }}
                                 center={center}
-                                mapContainerStyle={{
-                                    width: '60vw',
-                                    maxWidth: '500px',
-                                    height: '400px',
-                                }}
+                                mapContainerStyle={{ width: '500px', height: '400px' }}
                             >
                                 <Marker position={center} />
                                 {foodbankMarkers}

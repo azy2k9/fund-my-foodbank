@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Text, Stack, Flex, Box } from '@chakra-ui/react';
+import { Text, Stack, Flex, Box, useBreakpointValue } from '@chakra-ui/react';
 
 interface FeatureProps {
     title: string;
@@ -7,9 +7,11 @@ interface FeatureProps {
 }
 
 const Feature = ({ title, icon }: FeatureProps) => {
+    const flex = useBreakpointValue({ base: '', md: '1' });
+
     return (
-        <Box backgroundColor={'#48BB78'} borderRadius={'3px'}>
-            <Flex alignItems='center' height={'100%'} backgroundColor={'#C6F6D5'} ml={'2'}>
+        <Box backgroundColor={'#48BB78'} borderRadius={'3px'} m='1'>
+            <Flex alignItems='center' height={'100%'} backgroundColor={'#C6F6D5'} ml={'1'} py='2'>
                 <Flex
                     w={8}
                     h={8}
@@ -18,12 +20,11 @@ const Feature = ({ title, icon }: FeatureProps) => {
                     rounded={'full'}
                     bg={'#48BB78'}
                     m={2}
+                    flex={flex}
                 >
                     {icon}
                 </Flex>
-                <Text fontWeight={600} width={'200px'}>
-                    {title}
-                </Text>
+                <Text fontWeight={600}>{title}</Text>
             </Flex>
         </Box>
     );
