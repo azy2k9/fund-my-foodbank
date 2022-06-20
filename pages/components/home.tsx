@@ -10,6 +10,7 @@ import {
     useColorModeValue,
     createIcon,
     SimpleGrid,
+    Center
 } from '@chakra-ui/react';
 import Card from './card';
 import { useRouter } from 'next/router';
@@ -18,7 +19,9 @@ export default function HomePage() {
     const router = useRouter();
     return (
         <>
-            <Container maxW={'5xl'}>
+        <Center>
+
+            <Box width='70vw' mt='6'>
                 <Stack
                     as={Box}
                     textAlign={'center'}
@@ -97,7 +100,8 @@ export default function HomePage() {
                         </Button>
                     </Stack>
                 </Stack>
-            </Container>
+            </Box>
+            </Center>
         </>
     );
 }
