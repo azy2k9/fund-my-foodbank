@@ -49,7 +49,7 @@ const RegisterFoodBank = () => {
         // }).then((res) => res.json());
 
         // console.log(res);
-        router.push('/');
+        router.push('/StripeDetails');
         toast({
             title: 'Success',
             description: 'Thank you for registering!',
