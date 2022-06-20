@@ -9,6 +9,7 @@ import {
     Button,
     useDisclosure,
     Divider,
+    Heading,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import { Image } from '@chakra-ui/image';
@@ -20,8 +21,12 @@ const Links = [
         route: '/',
     },
     {
-        name: 'Find Local Foodbank',
+        name: 'Donate',
         route: '/find-local-foodbank',
+    },
+    {
+        name: 'Register Foodbank',
+        route: '/register-foodbank',
     },
 ];
 
@@ -31,7 +36,7 @@ export default function Navigationbar() {
 
     return (
         <>
-            <Box px={4} h='10vh'>
+            <Box px={4} h='7vh'>
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
                     <IconButton
                         size={'md'}
@@ -41,23 +46,20 @@ export default function Navigationbar() {
                         onClick={isOpen ? onClose : onOpen}
                     />
                     <HStack spacing={8} alignItems={'center'}>
-                        <Box>
-                            <Image
-                                src={'/fund-your-foodbank-logo.svg'}
-                                width={82}
-                                height={82}
-                                onClick={() => router.push('/')}
-                                _hover={{ cursor: 'pointer' }}
-                            />
-                        </Box>
+                        <HStack onClick={() => router.push('/')} _hover={{ cursor: 'pointer' }}>
+                            <Image src={'/fund-your-foodbank-logo.svg'} width={82} height={82} />
+                            <Heading size={'md'}>Fund My</Heading>
+                            <Heading size={'md'} color='green.500'>
+                                Food Bank
+                            </Heading>
+                        </HStack>
                         <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
                                 <Button
-                                    key={link.route}
                                     px={2}
-                                    variant={'ghost'}
                                     py={1}
-                                    rounded={'md'}
+                                    key={link.route}
+                                    variant={'ghost'}
                                     _hover={{
                                         textDecoration: 'none',
                                     }}
@@ -73,7 +75,8 @@ export default function Navigationbar() {
                     <Flex alignItems={'center'}>
                         <Button
                             variant={'solid'}
-                            style={{ backgroundColor: '#48bb78' }}
+                            bg={'green.400'}
+                            color='white'
                             size={'sm'}
                             mr={4}
                             leftIcon={<AddIcon />}
